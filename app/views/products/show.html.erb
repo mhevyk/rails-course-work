@@ -1,44 +1,66 @@
-<h1>
-  <%= @product.name %>
-</h1>
-<p>
-  <%= @product.description %>
-</p>
+<div class="product-details">
+  <div class="first-column">
+    <div class="product-details__image-wrapper">
+      <% if @product.image.attached? %>
+        <%= image_tag @product.image %>
+      <% else %>
+        <p>No image available</p>
+      <% end %>
+    </div>
+    <div>
+      <h1>
+        <%= @product.name %>
+      </h1>
+      <p class="product-details__price">
+        <%= @product.price %>$
+      </p>
+      <%= form_for :cart_item, url: cart_items_path, method: :post do |form| %>
 
-<p>
-  <%= @product.price %>
-</p>
-
-<hr />
-
-<h2 class="is-size-2">Comments</h2>
-<% @product.comments.each do |comment| %>
-  <h3>
-    <%= comment.body %>
-  </h3>
-<% end %>
-
-<hr />
-
-<%= form_for([@product, @product.comments.build]) do |form| %>
-  <p>Content</p>
-  <%= form.text_area :body %>
+        <%= hidden_field_tag :product_id, @product.id %>
+        <div class="flex" style="gap: 20px;">
+          <%= number_field_tag :quantity, 1, min: 1, :class => "input" %>
+          <%= form.submit "Add to Cart", :class => "button button__primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <p>
-    <%= form.submit "Add comment" %>
+    <%= @product.description %>
   </p>
-<% end %>
 
-<hr />
+  <h2>Comments</h2>
 
-<h2>Add to Cart</h2>
-<%= form_for :cart_item, url: cart_items_path, method: :post do |form| %>
-  <%= hidden_field_tag :product_id, @product.id %>
-  <p>
-    <label>Quantity:</label>
-    <%= number_field_tag :quantity, 1, min: 1 %>
-  </p>
-  <p>
-    <%= form.submit "Add to Cart" %>
-  </p>
-<% end %>
+  <% if @product.comments.any? %>
+    <% @product.comments.each do |comment| %>
+      <div class="comment">
+        <div class="comment-content">
+          <div class="username">
+            By: <%= comment.user.email %>
+          </div>
+          <div class="comment-text">
+            <%= comment.body %>
+          </div>
+          <div class="timestamp">
+            <%= comment.created_at.strftime("%B %d, %Y") %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="empty-state">
+      No comments yet. Be the first to comment!
+    </div>
+  <% end %>
+
+  <h2>Add comment</h2>
+
+  <%= form_for([@product, @product.comments.build]) do |form| %>
+    <div class="mb-3">
+      <%= form.text_area :body, :class => "input" %>
+    </div>
+    <div class="mb-4">
+      <%= form.submit "Add comment", :class => "button button__primary" %>
+    </div>
+  <% end %>
+</div>

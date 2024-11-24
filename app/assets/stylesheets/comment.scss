@@ -1,0 +1,29 @@
+.comment {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 12px 24px;
+  margin: 12px 0;
+  border-left: 4px solid var(--accent-color);
+
+  .comment-content {
+    flex-grow: 1;
+
+    .username {
+      font-weight: 500;
+      color: var(--dark-color);
+      font-size: 14px;
+    }
+
+    .comment-text {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+
+    .timestamp {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 8px;
+    }
+  }
+}

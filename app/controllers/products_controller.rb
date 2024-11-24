@@ -1,10 +1,10 @@
 class ProductsController < ApplicationController
+  def index
+    @product = Product.all
+  end
 
   def new
     @product = Product.new
-  end
-  def index
-    @product = Product.all
   end
 
   def show
@@ -20,8 +20,7 @@ class ProductsController < ApplicationController
       render 'new', status: 422
     end
   end
-
   private def product_params
-    params.require(:product).permit(:name, :description, :price, :stock_quantity)
+    params.require(:product).permit(:name, :description, :price, :stock_quantity, :image)
   end
 end

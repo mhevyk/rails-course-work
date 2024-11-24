@@ -8,6 +8,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
+gem 'sassc-rails'
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -29,7 +30,5 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-
-gem "shadcn-ui", "~> 0.0.15"
 
 gem "tailwindcss-rails", "~> 3.0"

@@ -1,0 +1,81 @@
+$spacing-values: (0, 1, 2, 3, 4, 5);
+
+@for $i from 0 through length($spacing-values) - 1 {
+  $spacing: nth($spacing-values, $i + 1);
+
+  .m-#{$spacing} {
+    margin: #{$spacing * 0.25}rem !important;
+  }
+
+  .mt-#{$spacing} {
+    margin-top: #{$spacing * 0.25}rem !important;
+  }
+
+  .mr-#{$spacing} {
+    margin-right: #{$spacing * 0.25}rem !important;
+  }
+
+  .mb-#{$spacing} {
+    margin-bottom: #{$spacing * 0.25}rem !important;
+  }
+
+  .ml-#{$spacing} {
+    margin-left: #{$spacing * 0.25}rem !important;
+  }
+
+  .mx-#{$spacing} {
+    margin-left: #{$spacing * 0.25}rem !important;
+    margin-right: #{$spacing * 0.25}rem !important;
+  }
+
+  .my-#{$spacing} {
+    margin-top: #{$spacing * 0.25}rem !important;
+    margin-bottom: #{$spacing * 0.25}rem !important;
+  }
+}
+
+@for $i from 0 through length($spacing-values) - 1 {
+  $spacing: nth($spacing-values, $i + 1);
+
+  .p-#{$spacing} {
+    padding: #{$spacing * 0.25}rem !important;
+  }
+
+  .pt-#{$spacing} {
+    padding-top: #{$spacing * 0.25}rem !important;
+  }
+
+  .pr-#{$spacing} {
+    padding-right: #{$spacing * 0.25}rem !important;
+  }
+
+  .pb-#{$spacing} {
+    padding-bottom: #{$spacing * 0.25}rem !important;
+  }
+
+  .pl-#{$spacing} {
+    padding-left: #{$spacing * 0.25}rem !important;
+  }
+
+  .px-#{$spacing} {
+    padding-left: #{$spacing * 0.25}rem !important;
+    padding-right: #{$spacing * 0.25}rem !important;
+  }
+
+  .py-#{$spacing} {
+    padding-top: #{$spacing * 0.25}rem !important;
+    padding-bottom: #{$spacing * 0.25}rem !important;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+justtify-content-center {
+  justify-content: center;
+}

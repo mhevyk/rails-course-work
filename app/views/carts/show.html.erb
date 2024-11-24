@@ -1,0 +1,35 @@
+<h1>Ваш кошик</h1>
+
+<% if @cart_items.any? %>
+  <table>
+    <thead>
+    <tr>
+      <th>Товар</th>
+      <th>Кількість</th>
+      <th>Ціна</th>
+      <th>Дії</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @cart_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td style="display: flex; gap: 20px;">
+          <%= button_to '-', decrease_quantity_cart_item_path(item), method: :post, class: "button" %>
+          <%= item.quantity %>
+          <%= button_to '+', increase_quantity_cart_item_path(item), method: :post, class: "button" %>
+        </td>
+        <td><%= number_to_currency(item.product.price * item.quantity, unit: "грн") %></td>
+        <td>
+          <%= button_to 'Видалити', remove_cart_path(item), method: :delete, class: "button" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <p><strong>Загальна сума: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }, unit: "грн") %></strong></p>
+  <%= button_to 'Очистити кошик', clear_cart_path, method: :delete, class: "btn btn-warning" %>
+  <%= link_to "Оформити замовлення", checkout_cart_path, class: "checkout-link" %>
+<% else %>
+  <p>Ваш кошик порожній.</p>
+<% end %>

@@ -1,0 +1,73 @@
+<h1>Оформлення замовлення</h1>
+
+<% if @cart_items.any? %>
+  <ul>
+    <% @cart_items.each do |item| %>
+      <li>
+        <%= item.product.name %> - <%= item.quantity %> шт. -
+        <%= number_to_currency(item.product.price * item.quantity) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>Загальна сума: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></h2>
+
+  <%= form_with model: @order, url: orders_path, local: true do |f| %>
+    <!-- Name Field -->
+    <div>
+      <%= f.label :name, "Ім'я" %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <!-- Email Field -->
+    <div>
+      <%= f.label :email, "Електронна пошта" %>
+      <%= f.email_field :email, required: true %>
+    </div>
+
+    <!-- Phone Field -->
+    <div>
+      <%= f.label :phone, "Телефон" %>
+      <%= f.telephone_field :phone, required: true %>
+    </div>
+
+    <!-- Address Field -->
+    <div>
+      <%= f.label :address, "Адреса доставки" %>
+      <%= f.text_field :address, required: true %>
+    </div>
+
+    <!-- Delivery Method Field -->
+    <div>
+      <%= f.label :delivery_method, "Спосіб доставки" %>
+      <%= f.select :delivery_method, ["Courier", "Pickup"], {}, required: true %>
+    </div>
+
+    <!-- Payment Method Field -->
+    <div>
+      <%= f.label :payment_method, "Спосіб оплати" %>
+      <%= f.select :payment_method, ["Cash", "Credit Card"], {}, required: true %>
+    </div>
+
+    <!-- Delivery Address Field -->
+    <div>
+      <%= f.label :delivery_address, "Адреса доставки (якщо інша)" %>
+      <%= f.text_field :delivery_address %>
+    </div>
+
+    <!-- Comment Field -->
+    <div>
+      <%= f.label :comment, "Коментар" %>
+      <%= f.text_area :comment %>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <%= f.submit "Підтвердити замовлення" %>
+    </div>
+  <% end %>
+
+  <%= link_to "Назад до кошика", cart_path, class: "btn btn-secondary" %>
+<% else %>
+  <p>Ваш кошик порожній. <%= link_to "До каталогу", products_path %></p>
+<% end %>

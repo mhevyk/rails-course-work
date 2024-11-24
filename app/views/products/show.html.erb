@@ -1,0 +1,44 @@
+<h1>
+  <%= @product.name %>
+</h1>
+<p>
+  <%= @product.description %>
+</p>
+
+<p>
+  <%= @product.price %>
+</p>
+
+<hr />
+
+<h2 class="is-size-2">Comments</h2>
+<% @product.comments.each do |comment| %>
+  <h3>
+    <%= comment.body %>
+  </h3>
+<% end %>
+
+<hr />
+
+<%= form_for([@product, @product.comments.build]) do |form| %>
+  <p>Content</p>
+  <%= form.text_area :body %>
+
+  <p>
+    <%= form.submit "Add comment" %>
+  </p>
+<% end %>
+
+<hr />
+
+<h2>Add to Cart</h2>
+<%= form_for :cart_item, url: cart_items_path, method: :post do |form| %>
+  <%= hidden_field_tag :product_id, @product.id %>
+  <p>
+    <label>Quantity:</label>
+    <%= number_field_tag :quantity, 1, min: 1 %>
+  </p>
+  <p>
+    <%= form.submit "Add to Cart" %>
+  </p>
+<% end %>

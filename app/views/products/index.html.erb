@@ -1,0 +1,12 @@
+<h1>Products#index</h1>
+
+<h3>Home page</h3>
+
+<% @product.each do |product| %>
+  <h3>
+    <%= product.name %> (<%= product.comments.size %> comments)
+  </h3>
+  <p>
+    <%= product.description %>
+  </p>
+<% end %>

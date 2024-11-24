@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  username: postgres
+  password: postgres
+
+development:
+  <<: *default
+  database: sportswear_development
+  host: localhost
+
+test:
+  <<: *default
+  database: sportswear_test
+  host: localhost
+
+production:
+  <<: *default
+  database: sportswear_prod
+  host: <%= ENV['DATABASE_URL'] %> # Use your production host or a cloud service URL
+  port: 5432

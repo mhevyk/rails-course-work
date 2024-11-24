@@ -1,0 +1,27 @@
+<h2>Add post</h2>
+
+<%= form_for :product, url: products_path do |form| %>
+  <% if @product.errors.any? %>
+    <% @product.errors.full_messages.each do |msg| %>
+      <div class="alert">
+        <%= msg %>
+      </div>
+    <% end %>
+  <% end %>
+  <p>Name</p>
+  <%= form.text_field :name %>
+  <input class="input" type="text" placeholder="Text input" />
+
+  <p>Description</p>
+  <%= form.text_area :description %>
+
+  <p>Price</p>
+  <%= form.number_field :price %>
+
+  <p>In stock</p>
+  <%= form.number_field :stock_quantity %>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

@@ -1,0 +1,13 @@
+<%= content_for(:without_default_wrapper, true) %>
+<%= content_for(:without_footer, true) %>
+
+<div class="auth-grid">
+  <%= image_tag "/assets/girl3.webp" %>
+  <div class="flex" style="flex-direction: column; height: 100%; margin-top: 50px;">
+    <%= yield %>
+    <p class="auth-links">
+      <%= render "devise/shared/links" %>
+    </p>
+  </div>
+</div>
+

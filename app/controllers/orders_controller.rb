@@ -1,12 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
 
-  def new
-    @order = Order.new
-    @cart = current_user.cart
-    @cart_items = @cart.cart_items
-  end
-
   def create
     @order = Order.new(order_params)
     @order.user = current_user
@@ -16,7 +10,7 @@ class OrdersController < ApplicationController
     # If the cart is empty, show an alert and don't process the order
     if @cart_items.empty?
       flash.now[:alert] = "Ваш кошик порожній!"
-      render :new and return
+      render :contacts and return
     end
 
     # Calculate the total price for the order
@@ -33,7 +27,7 @@ class OrdersController < ApplicationController
       redirect_to root_path, notice: "Ваше замовлення успішно оформлено!"
     else
       flash.now[:alert] = "Не вдалося оформити замовлення. Перевірте введені дані."
-      render :new
+      render :'carts/checkout'
     end
   end
 

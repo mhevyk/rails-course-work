@@ -1,1 +1,37 @@
-<p>This website was created by Maksym Hevyk</p>
+<%= content_for(:title, "Contacts") %>
+
+<h1>Contacts</h1>
+
+<ul>
+  <li class="mb-3">
+    <strong>Email:</strong> <a style="color: rgb(234, 88, 35)" href="mailto:maxxevyk7@gmail.com">maxxevyk7@gmail.com</a>
+  </li>
+  <li class="mb-3">
+    <strong>Github:</strong> <a style="color: rgb(234, 88, 35)" href="https://github.com/mhevyk" target="_blank">https://github.com/mhevyk</a>
+  </li>
+</ul>
+
+<hr />
+
+<h2>Give feedback</h2>
+
+<%= form_with model: @feedback, url: create_feedback_path, local: true do |form| %>
+  <div class="mb-4">
+    <%= form.label :name, "Your Name" %>
+    <%= form.text_field :name, class: "input" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :email, "Your Email" %>
+    <%= form.text_field :email, class: "input" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :message, "Your Message" %>
+    <%= form.text_area :message, class: "input" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.submit "Submit Feedback", class: "button button__primary" %>
+  </div>
+<% end %>

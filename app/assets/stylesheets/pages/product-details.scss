@@ -1,0 +1,30 @@
+.product-details {
+  h1 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-size: 46px;
+    color: var(--accent-color);
+  }
+
+  .first-column {
+    display: flex;
+    gap: 50px;
+  }
+
+  .summary {
+    margin: auto 0;
+  }
+
+  .image-with-placeholder {
+    min-width: 500px;
+    height: 600px;
+    width: 50%;
+  }
+
+  &__price {
+    font-size: 30px;
+    margin: 20px 0;
+    padding: 0;
+  }
+}

@@ -1,0 +1,38 @@
+.button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: 300ms;
+  text-transform: uppercase;
+  position: relative;
+  border: 1px solid transparent;
+  background-color: transparent;
+  letter-spacing: 2px;
+  font-size: 14px;
+  line-height: 1;
+  display: block;
+  width: fit-content;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__primary {
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+
+    &:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+  }
+
+  &__dark {
+    color: var(--dark-color);
+    border: 1px solid var(--dark-color);
+
+    &:hover {
+      background-color: var(--dark-color);
+      color: white;
+    }
+  }
+}

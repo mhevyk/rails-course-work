@@ -1,30 +1,29 @@
+<%= content_for(:title, "Add product") %>
+
 <h2>Add product</h2>
 
 <%= form_with model: @product, local: true, html: { multipart: true } do |form| %>
-  <div>
+  <div class="mb-4">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'input' %>
   </div>
-
-  <div>
+  <div class="mb-4">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: 'input' %>
   </div>
-
-  <div>
+  <div class="mb-4">
     <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%= form.text_field :price, class: 'input' %>
   </div>
-
-  <div>
-    <%= form.label :stock_quantity %>
-    <%= form.number_field :stock_quantity %>
+  <div class="mb-4">
+    <%= form.label :category %>
+    <%= form.select :category, ["Jackets", "Leggings", "Shorts"],
+                    { prompt: "Select category..." }, class: 'input' %>
   </div>
-
-  <div>
+  <div class="mb-4">
     <%= form.label :image %>
-    <%= form.file_field :image %> <!-- Ensure this is a file_field -->
+    <%= form.file_field :image, class: 'input' %>
   </div>
 
-  <%= form.submit "Create Product" %>
+  <%= form.submit "Create Product", class: 'button button__primary' %>
 <% end %>

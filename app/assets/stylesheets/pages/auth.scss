@@ -1,0 +1,9 @@
+.auth-grid {
+  display: flex;
+  gap: 100px;
+}
+
+.auth-links a {
+  color: var(--dark-color);
+  text-decoration: underline;
+}

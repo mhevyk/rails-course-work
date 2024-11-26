@@ -3,13 +3,15 @@
   <ul class="app-header__links">
     <li>
       <%= link_to "Shop", products_path, class: "app-header__link #{'app-header__link--active' if current_page?(products_path)}" %>
-
     </li>
     <li>
       <%= link_to "Contacts", contacts_path, class: "app-header__link #{'app-header__link--active' if current_page?(contacts_path)}" %>
     </li>
   </ul>
   <div class="app-header__actions">
+    <%= form_with url: products_path, method: :get, local: true, class: "search-form" do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Search...", class: "input search-input" %>
+    <% end %>
     <% if user_signed_in? %>
       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "button button__primary" %>
       <%= link_to '/cart', class: 'app-header__cart-link' do %>

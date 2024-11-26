@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   root "home#index"
-  get 'contacts' => 'home#contacts'
   devise_for :users
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
+
+  get 'contacts', to: 'home#contacts'
+  post 'create_feedback', to: 'home#create_feedback'
 
   resources :products do
     resources :comments, only: [:create]

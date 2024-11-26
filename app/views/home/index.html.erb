@@ -1,9 +1,12 @@
+<%= content_for(:title, "Home") %>
+<%= content_for(:without_default_wrapper, true) %>
+
 <div class="home-page">
   <div class="hero">
     <div class="girl">
       <div class="content">
         <h1>IT'S TIME<br />TO STEP UP<br />YOUR GAME</h1>
-        <button class="button button__primary">Shop now</button>
+        <%= link_to "Shop now", products_path, :class => "button button__primary" %>
       </div>
     </div>
     <div class="road">

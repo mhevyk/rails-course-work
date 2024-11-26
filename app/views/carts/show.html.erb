@@ -1,35 +1,55 @@
-<h1>Ваш кошик</h1>
+<%= content_for(:title, "Cart") %>
+
+<h1>Cart</h1>
 
 <% if @cart_items.any? %>
-  <table>
-    <thead>
-    <tr>
-      <th>Товар</th>
-      <th>Кількість</th>
-      <th>Ціна</th>
-      <th>Дії</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @cart_items.each do |item| %>
+  <div class="cart-container">
+    <table class="cart-table">
+      <thead>
       <tr>
-        <td><%= item.product.name %></td>
-        <td style="display: flex; gap: 20px;">
-          <%= button_to '-', decrease_quantity_cart_item_path(item), method: :post, class: "button" %>
-          <%= item.quantity %>
-          <%= button_to '+', increase_quantity_cart_item_path(item), method: :post, class: "button" %>
-        </td>
-        <td><%= number_to_currency(item.product.price * item.quantity, unit: "грн") %></td>
-        <td>
-          <%= button_to 'Видалити', remove_cart_path(item), method: :delete, class: "button" %>
-        </td>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <p><strong>Загальна сума: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }, unit: "грн") %></strong></p>
-  <%= button_to 'Очистити кошик', clear_cart_path, method: :delete, class: "btn btn-warning" %>
-  <%= link_to "Оформити замовлення", checkout_cart_path, class: "checkout-link" %>
+      </thead>
+      <tbody>
+      <% @cart_items.each do |item| %>
+        <tr class="cart-item">
+          <td>
+            <div class="cart-item-name">
+              <%= item.product.name %>
+            </div>
+          </td>
+          <td>
+            <div class="quantity-control">
+              <%= button_to '-', decrease_quantity_cart_item_path(item), method: :post, class: "button button__decrease" %>
+              <span class="quantity-value"><%= item.quantity %></span>
+              <%= button_to '+', increase_quantity_cart_item_path(item), method: :post, class: "button button__increase" %>
+            </div>
+          </td>
+          <td>
+            <div class="cart-item-price">
+              <%= item.product.price * item.quantity %>$
+            </div>
+          </td>
+          <td>
+            <div class="cart-item-actions">
+              <%= button_to 'Delete', remove_cart_path(item), method: :delete, class: "button button__remove" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <p><strong>Total price: <%= @cart_items.sum { |item| item.product.price * item.quantity } %>$</strong></p>
+      <div class="cart-buttons">
+        <%= button_to 'Clear cart', clear_cart_path, method: :delete, class: "button button__dark" %>
+        <%= link_to "Checkout", checkout_cart_path, class: "button button__primary" %>
+      </div>
+    </div>
+  </div>
 <% else %>
-  <p>Ваш кошик порожній.</p>
+  <p>Your cart is empty</p>
 <% end %>

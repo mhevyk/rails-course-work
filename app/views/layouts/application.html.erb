@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Course Work" %></title>
+    <title><%= content_for(:title) || "Sportswear" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -24,10 +24,18 @@
       <%= render 'layouts/header' %>
     <% end %>
     <main style="flex-grow: 1;">
-      <%= yield %>
+      <% if content_for?(:without_default_wrapper) %>
+        <%= yield %>
+      <% else %>
+        <div class="container mb-4 p-5">
+          <%= yield %>
+        </div>
+      <% end %>
     </main>
-  <footer>
-    Copyright &copy; Maksym Hevyk
-  </footer>
+    <% unless content_for?(:without_footer) %>
+      <footer>
+        Copyright &copy; Maksym Hevyk
+      </footer>
+    <% end %>
   </body>
 </html>

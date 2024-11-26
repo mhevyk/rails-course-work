@@ -1,73 +1,120 @@
-<h1>Оформлення замовлення</h1>
+<%= content_for(:title, "Make an order") %>
+
+<h1>Checkout</h1>
 
 <% if @cart_items.any? %>
-  <ul>
-    <% @cart_items.each do |item| %>
-      <li>
-        <%= item.product.name %> - <%= item.quantity %> шт. -
-        <%= number_to_currency(item.product.price * item.quantity) %>
-      </li>
-    <% end %>
-  </ul>
+  <div class="checkout-container">
+    <table class="cart-table">
+      <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @cart_items.each do |item| %>
+        <tr class="cart-item">
+          <td>
+            <div class="cart-item-name">
+              <%= item.product.name %>
+            </div>
+          </td>
+          <td>
+            <div class="quantity-control">
+              <span class="quantity-value"><%= item.quantity %></span>
+            </div>
+          </td>
+          <td>
+            <div class="cart-item-price">
+              <%= item.product.price * item.quantity %>$
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-  <h2>Загальна сума: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></h2>
+    <h2 class="total">
+    Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %>
+  </h2>
 
-  <%= form_with model: @order, url: orders_path, local: true do |f| %>
-    <!-- Name Field -->
-    <div>
-      <%= f.label :name, "Ім'я" %>
-      <%= f.text_field :name, required: true %>
+
+    <%= form_with model: @order, url: orders_path, local: true, class: 'checkout-form' do |f| %>
+      <div class="mb-4">
+      <%= f.label :name, "Fullname" %>
+      <%= f.text_field :name, class: "input #{'invalid' if @order.errors[:name].any?}" %>
+      <% if @order.errors[:name].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:name).join(", ") %></div>
+      <% end %>
     </div>
 
-    <!-- Email Field -->
-    <div>
-      <%= f.label :email, "Електронна пошта" %>
-      <%= f.email_field :email, required: true %>
+      <div class="mb-4">
+      <%= f.label :email, "Email" %>
+      <%= f.email_field :email, class: "input #{'invalid' if @order.errors[:email].any?}" %>
+      <% if @order.errors[:email].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:email).join(", ") %></div>
+      <% end %>
     </div>
 
-    <!-- Phone Field -->
-    <div>
-      <%= f.label :phone, "Телефон" %>
-      <%= f.telephone_field :phone, required: true %>
+      <div class="mb-4">
+      <%= f.label :phone, "Phone number" %>
+      <%= f.telephone_field :phone, class: "input #{'invalid' if @order.errors[:phone].any?}" %>
+      <% if @order.errors[:phone].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:phone).join(", ") %></div>
+      <% end %>
     </div>
 
-    <!-- Address Field -->
-    <div>
-      <%= f.label :address, "Адреса доставки" %>
-      <%= f.text_field :address, required: true %>
+      <div class="mb-4">
+      <%= f.label :address, "Address" %>
+      <%= f.text_field :address, class: "input #{'invalid' if @order.errors[:address].any?}" %>
+      <% if @order.errors[:address].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:address).join(", ") %></div>
+      <% end %>
     </div>
 
-    <!-- Delivery Method Field -->
-    <div>
-      <%= f.label :delivery_method, "Спосіб доставки" %>
-      <%= f.select :delivery_method, ["Courier", "Pickup"], {}, required: true %>
+      <div class="mb-4">
+      <%= f.label :delivery_method, "Delivery method" %>
+      <%= f.select :delivery_method, ["Nova Post", "Ukr Post", "Courier"],
+                   { prompt: "Select delivery method..." },
+                   class: "input #{'invalid' if @order.errors[:delivery_method].any?}" %>
+      <% if @order.errors[:delivery_method].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:delivery_method).join(", ") %></div>
+      <% end %>
     </div>
 
-    <!-- Payment Method Field -->
-    <div>
-      <%= f.label :payment_method, "Спосіб оплати" %>
-      <%= f.select :payment_method, ["Cash", "Credit Card"], {}, required: true %>
+      <div class="mb-4">
+      <%= f.label :payment_method, "Payment method" %>
+      <%= f.select :payment_method, ["Cash", "Credit Card"],
+                   { prompt: "Select payment method..." },
+                   class: "input #{'invalid' if @order.errors[:payment_method].any?}" %>
+      <% if @order.errors[:payment_method].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:payment_method).join(", ") %></div>
+      <% end %>
     </div>
 
-    <!-- Delivery Address Field -->
-    <div>
-      <%= f.label :delivery_address, "Адреса доставки (якщо інша)" %>
-      <%= f.text_field :delivery_address %>
+      <div class="mb-4">
+      <%= f.label :delivery_address, "Delivery address (if differs from default address)" %>
+      <%= f.text_field :delivery_address, class: "input #{'invalid' if @order.errors[:delivery_address].any?}" %>
+      <% if @order.errors[:delivery_address].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:delivery_address).join(", ") %></div>
+      <% end %>
+    </div>
+      <div class="mb-4">
+      <%= f.label :comment, "Comment" %>
+      <%= f.text_area :comment, class: "input #{'invalid' if @order.errors[:comment].any?}" %>
+      <% if @order.errors[:comment].any? %>
+        <div class="error-message"><%= @order.errors.full_messages_for(:comment).join(", ") %></div>
+      <% end %>
+    </div>
+      <div class="flex mb-4" style="gap: 20px">
+      <%= f.submit "Order", class: 'button button__primary' %>
+      <%= link_to "To cart", cart_path, class: "button button__dark" %>
     </div>
 
-    <!-- Comment Field -->
-    <div>
-      <%= f.label :comment, "Коментар" %>
-      <%= f.text_area :comment %>
-    </div>
-
-    <!-- Submit Button -->
-    <div>
-      <%= f.submit "Підтвердити замовлення" %>
-    </div>
   <% end %>
+  </div>
 
-  <%= link_to "Назад до кошика", cart_path, class: "btn btn-secondary" %>
 <% else %>
-  <p>Ваш кошик порожній. <%= link_to "До каталогу", products_path %></p>
+  <p>Your cart is empty. <%= link_to "To cart", products_path %></p>
 <% end %>

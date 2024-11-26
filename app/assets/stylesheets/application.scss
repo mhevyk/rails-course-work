@@ -14,71 +14,11 @@
  *= require_self
  */
 
-:root {
-    --dark-color: #1f1f1f;
-    --accent-color: rgb(234, 88, 35);
-}
-
-body {
-    font-family: "Sarala", sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1280px;
-    margin: 0 auto;
-}
-
-.button {
-    border-radius: 5px;
-    padding: 10px 20px;
-    transition: 300ms;
-    text-transform: uppercase;
-    position: relative;
-    border: 1px solid transparent;
-    background-color: transparent;
-    letter-spacing: 2px;
-    font-size: 14px;
-    line-height: 1;
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    &__primary {
-        color: var(--accent-color);
-        border: 1px solid var(--accent-color);
-
-        &:hover {
-            background-color: var(--accent-color);
-            color: var(--dark-color);
-        }
-    }
-}
-
-a {
-    text-decoration: none;
-}
-
 footer,
 .app-header {
     background: var(--dark-color);
     padding: 8px 30px;
     color: white;
-}
-
-footer {
-    text-align: center;
 }
 
 .app-header {
@@ -93,6 +33,13 @@ footer {
         font-weight: bold;
         font-size: 40px;
         letter-spacing: 3px;
+        color: white;
+    }
+
+    .search-input {
+        width: 170px;
+        background: #666666;
+        border: 1px solid #666666;
         color: white;
     }
 
@@ -119,6 +66,10 @@ footer {
         display: flex;
         align-items: center;
         gap: 30px;
+
+        .button:hover {
+            color: var(--dark-color);
+        }
     }
 
     &__cart-icon {
@@ -135,118 +86,9 @@ footer {
     }
 }
 
-.product-grid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-auto-rows: 1fr;
+footer {
+    text-align: center;
 }
 
-.product-card {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    color: black;
 
-    & > * {
-        margin: 0;
-        padding: 0;
-    }
 
-    .image-wrapper {
-        background: #eee;
-        width: 100%;
-        aspect-ratio: 16/9;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        svg {
-            width: 60px;
-            height: 60px;
-            color: #bbb;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            max-height: 150px;
-        }
-    }
-
-    &__price {
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    &__description {
-        overflow: hidden;
-        text-wrap: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .button__primary {
-        padding: 10px 0;
-    }
-}
-
-.product-details {
-    h1 {
-        margin: 0;
-        padding: 0;
-        line-height: 1;
-        font-size: 46px;
-        color: var(--accent-color);
-    }
-
-    .first-column {
-        display: flex;
-        gap: 50px;
-    }
-
-    &__image-wrapper {
-        width: 50%;
-        aspect-ratio: 16/9;
-        object-fit: cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #ccc;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    &__price {
-        font-size: 30px;
-        margin: 20px 0;
-        padding: 0;
-    }
-}
-
-.input {
-    width: 100%;
-    padding: 8px 20px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    color: #333;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-
-    &:focus {
-        border-color: #3498db;
-        background-color: #fff;
-        box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
-        outline: none;
-    }
-
-    &::placeholder {
-        color: #aaa;
-    }
-}

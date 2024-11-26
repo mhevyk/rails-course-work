@@ -1,13 +1,9 @@
+<%= content_for(:title, "Product " + @product.name) %>
+
 <div class="product-details">
   <div class="first-column">
-    <div class="product-details__image-wrapper">
-      <% if @product.image.attached? %>
-        <%= image_tag @product.image %>
-      <% else %>
-        <p>No image available</p>
-      <% end %>
-    </div>
-    <div>
+    <%= render 'shared/image_with_placeholder', image: @product.image %>
+    <div class="summary">
       <h1>
         <%= @product.name %>
       </h1>
@@ -57,7 +53,7 @@
 
   <%= form_for([@product, @product.comments.build]) do |form| %>
     <div class="mb-3">
-      <%= form.text_area :body, :class => "input" %>
+      <%= form.text_area :body, class: "input" %>
     </div>
     <div class="mb-4">
       <%= form.submit "Add comment", :class => "button button__primary" %>

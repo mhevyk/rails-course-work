@@ -44,9 +44,12 @@
     </table>
     <div class="cart-summary">
       <p><strong>Total price: <%= @cart_items.sum { |item| item.product.price * item.quantity } %>$</strong></p>
-      <div class="cart-buttons">
-        <%= button_to 'Clear cart', clear_cart_path, method: :delete, class: "button button__dark" %>
-        <%= link_to "Checkout", checkout_cart_path, class: "button button__primary" %>
+      <div class="flex" style="justify-content: space-between;">
+        <%= link_to "Back to product", "javascript:history.back()", class: "button button__dark" %>
+        <div class="cart-buttons">
+          <%= button_to 'Clear cart', clear_cart_path, method: :delete, class: "button button__dark" %>
+          <%= link_to "Checkout", checkout_cart_path, class: "button button__primary" %>
+        </div>
       </div>
     </div>
   </div>
